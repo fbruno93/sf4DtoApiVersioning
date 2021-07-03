@@ -13,7 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
 {
-    #[Route('/api/{apiVersion}/artist/{artistId}', name: 'api')]
+    #[Route('/api/{apiVersion}/artist/{artistId}', name: 'apiV2', requirements: ['artistId' => '\d+'], priority: 1)]
+    #[Route('/api/{apiVersion}/artist/get', name: 'api', priority: 2)]
     public function index(
         ArtistGetRequest $request,
         ArtistService $artistService,

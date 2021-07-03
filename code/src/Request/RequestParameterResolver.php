@@ -36,6 +36,7 @@ class RequestParameterResolver implements ArgumentValueResolverInterface
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
+        dump($request);
         $class = $argument->getType();
         $requestClass = new $class($request);
 
