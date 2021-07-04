@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Model\Artist;
-use App\Model\Biography;
 
 class ArtistService 
 {
