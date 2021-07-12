@@ -1,4 +1,7 @@
 {
+    "cebe/php-openapi": {
+        "version": "1.5.2"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
     },
@@ -107,6 +110,9 @@
             "config/packages/jms_serializer.yaml",
             "config/packages/prod/jms_serializer.yaml"
         ]
+    },
+    "justinrainbow/json-schema": {
+        "version": "5.2.10"
     },
     "laminas/laminas-code": {
         "version": "4.4.0"

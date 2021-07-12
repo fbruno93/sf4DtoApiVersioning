@@ -8,6 +8,12 @@ use App\Transformer\Database\ArtistResponseTransformer;
 use App\Service\AlbumService;
 use App\Service\ArtistService;
 
+use Nette\PhpGenerator\Attribute;
+use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Method;
+use Nette\PhpGenerator\PhpNamespace;
+use Nette\PhpGenerator\Property;
+use Nette\SmartObject;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -43,5 +49,41 @@ class ApiController extends AbstractController
         }
 
         return $this->json($album);
+    }
+
+
+    #[Route('/api/test', name: 'album')]
+    public function test(): JsonResponse
+    {
+        $member = (new Property('artistId'))
+            ->setType('int')
+            ->setPrivate()
+        ;
+
+        $method = (new Method('getArtistId'))
+            ->setPublic()
+            ->setBody('return $this->artistId')
+            ->addAttribute("Assert\NotBlank", [
+                'message' => 'PARAMETER_ARTIST_ID_REQUIRED'
+            ])
+            ->addAttribute('Assert\Positive', [
+                'message' => 'PARAMETER_ARTIST_ID_POSITIVE_NUMBER'
+            ])
+        ;
+
+        $class = (new ClassType('Test'))
+            ->addMember($member)
+            ->addMember($method)
+        ;
+
+        $namespace = (new PhpNamespace('App\Request'))
+            ->addUse('Symfony\Component\HttpFoundation\Request')
+            ->addUse('Symfony\Component\Validator\Constraints as Assert')
+            ->add($class)
+        ;
+
+        dd($namespace->__toString());
+
+        return $this->json([]);
     }
 }
